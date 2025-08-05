@@ -47,7 +47,9 @@ def submit_text(data: TextRequest, db: Session = Depends(get_db)):
 
     # 2. Llamar al microservicio Java para procesar (ya no se crea)
     try:
-        java_procesar_url = f"http://servicio-java:8080/api/analyze/{job_id}"
+        java_procesar_url = f"https://analitycore-java.onrender.com/api/analyze/{job_id}"
+
+        #java_procesar_url = f"http://servicio-java:8080/api/analyze/{job_id}"
 
         print(" Iniciando análisis en el microservicio Java...")
         procesar_response = httpx.post(java_procesar_url, timeout=15)
