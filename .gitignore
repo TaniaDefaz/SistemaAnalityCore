@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+
+# Java
+target/
+*.log
+
+# Node/Frontend
+node_modules/
+dist/
+
+# Docker
+*.env
+.env
+
+# Otros
+.DS_Store
+.vscode/

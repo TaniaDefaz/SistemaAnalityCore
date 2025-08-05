@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+
+  frontend:
+    build: ./frontend
+    container_name: servicio-frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - python-service
+    networks:
+      - analytinet
+
+  python-service:
+    build: ./python-service
+    container_name: servicio-python
+    ports:
+      - "8000:8000"
+    depends_on:
+      - java-service
+    networks:
+      - analytinet
+    environment:
+      - DB_HOST=dpg-d283l4muk2gs73eqvo6g-a.oregon-postgres.render.com
+      - DB_PORT=5432
+      - DB_NAME=analitycore
+      - DB_USER=tania
+      - DB_PASSWORD=x22dqDiRv4OaYUjAD4ZxdGmzFFw4plcw
+
+  java-service:
+    build: ./java-service
+    container_name: servicio-java
+    ports:
+      - "8080:8080"
+    networks:
+      - analytinet
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://dpg-d283l4muk2gs73eqvo6g-a.oregon-postgres.render.com/analitycore
+      - SPRING_DATASOURCE_USERNAME=tania
+      - SPRING_DATASOURCE_PASSWORD=x22dqDiRv4OaYUjAD4ZxdGmzFFw4plcw
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_SHOW_SQL=true
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.PostgreSQLDialect
+
+networks:
+  analytinet:
+    driver: bridge
