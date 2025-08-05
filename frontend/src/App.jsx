@@ -11,7 +11,8 @@ function App() {
   const enviarTexto = async () => {
     setEsperando(true);
     try {
-      const response = await fetch('http://localhost:8000/submit', {
+      const response = await fetch('https://analitycore-python.onrender.com/submit',{
+      //const response = await fetch('http://localhost:8000/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ texto }),
@@ -29,7 +30,8 @@ function App() {
 
   const consultarResultado = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/status/${jobId}`);
+      const response = await fetch(`https://analitycore-python.onrender.com/status/${jobId}`);
+      //const response = await fetch(`http://localhost:8000/status/${jobId}`);
       const data = await response.json();
       setEstado(data.estado);
       if (data.estado === 'COMPLETADO') {
